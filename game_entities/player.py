@@ -16,13 +16,11 @@ class Player(Turtle):
 
     def go_up(self):
         if self.ycor() < 280:
-            new_y = self.ycor() + MOVE_DISTANCE
-            self.goto(self.xcor(), new_y)
+            self.forward(MOVE_DISTANCE)
 
     def go_down(self):
         if self.ycor() > -280:
-            new_y = self.ycor() - MOVE_DISTANCE
-            self.goto(self.xcor(), new_y)
+            self.forward(-MOVE_DISTANCE)
 
     def go_left(self):
         if self.xcor() > -390:

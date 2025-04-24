@@ -12,12 +12,12 @@ screen.setup(width=800, height=600)
 screen.tracer(0)
 
 
-vehicles = []
+
 player = Player()
 placar = Scoreboard()
-for _ in range(10):
-    vehicle = Vehicle()
-    vehicles.append(vehicle)
+
+vehicle = Vehicle()
+
 
 screen.listen()
 screen.onkey(player.go_up, "Up")
@@ -28,33 +28,30 @@ screen.onkey(player.go_right, "Right")
 
 game_is_on = True
 
-random_num = random.randint(0, 4)
-print(random_num)
+random_num = random.randint(0, 10)
+
 
 
 while game_is_on:
     time.sleep(0.1)
     screen.update()
 
-    for i in range(len(vehicles)):
-        random_speed = random.randint(1, 20)
-        vehicles[i].move(random_speed)
+    vehicle.create_car()
+    vehicle.move_cars()
 
     #In case the player wins
     if player.ycor() >= 280:
         placar.increaseScore()
         player.go_to_start()
-        for i in range(len(vehicles)):
-            vehicles[i].go_to_start()
+
 
     #In case the player loses
-    for i in range(len(vehicles)):
-        if player.distance(vehicles[i]) < 40:
+    for car in vehicle.all_cars:
+        if player.distance(car) < 30:
             placar.game_over()
             player.go_to_start()
-            for j in range(len(vehicles)):
-                vehicles[j].go_to_start()
-                vehicles[j].stop()
+            game_is_on = False
+
 
 
 
